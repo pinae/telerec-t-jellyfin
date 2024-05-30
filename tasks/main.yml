@@ -1,0 +1,14 @@
+- ansible.builtin.import_role:
+    name: compose_hull
+  vars:
+    service_defaults:
+      name: jellyfin
+      port: 8096
+      traefik: true
+      external: false
+      watchtower: true
+      autoheal: true
+      subdirs:
+        - workdir
+        - confdir
+      version: latest

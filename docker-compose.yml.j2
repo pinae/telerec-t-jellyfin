@@ -1,0 +1,16 @@
+services:
+  jellyfin:
+    image: "lscr.io/linuxserver/jellyfin:{{ service_cfg.version }}"
+    container_name: "{{ service_cfg.name }}"
+    restart: unless-stopped
+    healthcheck:
+      test: "curl --fail http://localhost:{{ service_cfg.port }}/health || exit 1"
+    environment:
+      PUID: "{{ PUID }}"
+      PGID: "{{ PGID }}"
+      TZ: "{{ timezone }}"
+    volumes:
+      - "{{ service_cfg.tv_series_dir }}:/data/tvshows"
+      - "{{ service_cfg.movies_dir }}:/data/movies"
+      - "{{ service_cfg.directory }}:/config"
+    labels: *base_labels
